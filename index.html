@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workforge - Simulate Your Success in the Age of AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #121212; /* Near black */
+            --bg-secondary-dark: #1E1E1E; /* Slightly lighter dark */
+            --text-primary: #EAEAEA; /* Light grey/off-white */
+            --text-secondary: #A0A0A0; /* Medium grey */
+            --accent-primary: #00CFE8; /* Electric Cyan/Blue */
+            --accent-secondary: #00A9B8; /* Darker Cyan/Blue */
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .container {
+            width: 90%;
+            max-width: 1100px; /* Slightly more constrained for focused content */
+            margin: auto;
+            padding: 0 20px;
+        }
+        header {
+            background: rgba(18, 18, 18, 0.85); /* Semi-transparent dark */
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1.logo {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif; /* Techy font for logo */
+            font-size: 2rem;
+            color: var(--accent-primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        header nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        header nav a:hover, header nav a.active {
+            color: var(--accent-primary);
+        }
+        .hero {
+            /* Suggested: Abstract AI neural network or futuristic workspace background */
+            background: var(--bg-dark) url('https://images.pexels.com/photos/7103064/pexels-photo-7103064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover; /* Placeholder: dark tech background */
+            background-blend-mode: overlay;
+            background-color: rgba(18, 18, 18, 0.6); /* Darken the image */
+            padding: 100px 0 120px 0;
+            text-align: center;
+            position: relative;
+        }
+         .hero::before { /* Subtle overlay for text readability */
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(18, 18, 18, 0.3);
+        }
+        .hero .container {
+            position: relative; /* For z-index stacking */
+        }
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #fff; /* Ensure hero text is bright */
+            text-shadow: 0 0 15px rgba(0, 207, 232, 0.3); /* Subtle glow for accent */
+        }
+        .hero .tagline {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero .sub-tagline {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-secondary);
+        }
+        .cta-button {
+            background: var(--accent-primary);
+            color: var(--bg-dark); /* Text on button should be dark for contrast */
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            box-shadow: 0 5px 20px rgba(0, 207, 232, 0.25);
+            border: none;
+        }
+        .cta-button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-3px) scale(1.05);
+        }
+        section {
+            padding: 80px 0;
+        }
+        section.darker-bg {
+            background-color: var(--bg-secondary-dark);
+        }
+        section h3.section-title {
+            text-align: center;
+            font-size: 2.6rem;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        section h3.section-title span { /* For accent color in title */
+            color: var(--accent-primary);
+        }
+        section p.section-subtitle {
+            text-align: center;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 750px;
+            margin: 0 auto 60px auto;
+        }
+
+        /* AI Powered Section */
+        .ai-powered-section .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .ai-powered-section .feature-card {
+            background: var(--bg-secondary-dark);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .ai-powered-section .feature-card img.icon { /* Use SVG icons or simple GIFs */
+            height: 50px;
+            margin-bottom: 20px;
+            filter: invert(80%) sepia(100%) saturate(400%) hue-rotate(130deg); /* To make icons cyan-ish */
+        }
+        .ai-powered-section .feature-card h4 {
+            font-size: 1.3rem;
+            color: var(--accent-primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .ai-powered-section .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        /* SDR Path Showcase */
+        .sdr-path-showcase {
+            /* background: url('path/to/dark-abstract-background.jpg') no-repeat center center/cover; */
+        }
+        .sdr-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .sdr-step {
+            background: rgba(30, 30, 30, 0.7); /* Semi-transparent cards */
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .sdr-step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 207, 232, 0.15);
+        }
+        .sdr-step .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .sdr-step .step-number {
+            background-color: var(--accent-primary);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-right: 15px;
+            box-shadow: 0 0 10px var(--accent-primary);
+        }
+        .sdr-step h4 {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            margin: 0;
+            font-weight: 600;
+        }
+        .sdr-step p.desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .sdr-step ul {
+            padding-left: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin:0;
+        }
+        .sdr-step ul li {
+            margin-bottom: 8px;
+            padding-left: 10px;
+            position: relative;
+        }
+        .sdr-step ul li::before {
+            content: "▹"; /* Triangle bullet */
+            color: var(--accent-primary);
+            position: absolute;
+            left: -10px;
+            font-size: 1.1rem;
+        }
+        .sdr-step .ai-feature-tag {
+            display: inline-block;
+            background-color: rgba(0, 207, 232, 0.15);
+            color: var(--accent-primary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 10px;
+            border: 1px solid var(--accent-primary);
+        }
+
+        /* Audience Profiles */
+        .audience-profiles {
+             /* background: url('path/to/another-dark-abstract.jpg') no-repeat center center/cover; */
+        }
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 30px;
+        }
+        .profile-card {
+            background: var(--bg-secondary-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .profile-card img.avatar { /* Placeholder for avatar */
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid var(--accent-primary);
+            object-fit: cover; /* Ensure image covers, not stretches */
+        }
+        .profile-card h4.name {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .profile-card p.role {
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .profile-card p.pain-point {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        .profile-card .solution-highlight {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--bg-secondary-dark);
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .pricing-plan {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 35px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .pricing-plan.popular {
+            border: 2px solid var(--accent-primary);
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(0, 207, 232, 0.2);
+        }
+        .pricing-plan h4 {
+            font-size: 1.6rem;
+            color: var(--accent-primary);
+            margin-bottom: 15px;
+        }
+        .pricing-plan .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        .pricing-plan .price span {
+            font-size: 1rem;
+            font-weight: normal;
+            color: var(--text-secondary);
+        }
+        .pricing-plan ul {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+            text-align: left;
+            flex-grow: 1;
+        }
+        .pricing-plan ul li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        .pricing-plan ul li:before {
+            content: '✓'; /* Simple check or a more techy icon */
+            color: var(--accent-primary);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+        .pricing-plan .cta-button { margin-top: 20px; }
+
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-dark);
+            text-align: center;
+        }
+        .final-cta h3 {
+            color: var(--bg-dark);
+            font-size: 2.4rem;
+        }
+        .final-cta p {
+            color: rgba(18,18,18,0.9);
+            font-size: 1.15rem;
+        }
+        .final-cta .cta-button {
+            background: #fff;
+            color: var(--accent-primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+         .final-cta .cta-button:hover {
+            background: var(--text-primary);
+         }
+
+        footer {
+            background: #0A0A0A; /* Even darker footer */
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.9rem;
+        }
+        footer p { margin: 5px 0; }
+        footer a { color: var(--accent-primary); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* Utility: Hidden on small screens */
+        @media(max-width: 768px) {
+            .hero h2 { font-size: 2.5rem; }
+            .hero .tagline { font-size: 1.2rem; }
+            section h3.section-title { font-size: 2rem; }
+            header nav a { margin-left: 15px; font-size: 0.9rem; }
+            header h1.logo { font-size: 1.7rem; }
+            .profile-grid { grid-template-columns: 1fr; } /* Stack profiles on mobile */
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1 class="logo">Workforge</h1>
+            <nav>
+                <a href="#ai-engine">AI Engine</a>
+                <a href="#sdr-path">SDR Sim</a>
+                <a href="#who-is-it-for">For You</a>
+                <a href="#pricing">Pilot Access</a>
+                <a href="#cta" class="cta-button" style="padding:10px 20px; font-size:0.9rem; margin-left:20px;">Join Beta</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Master Real Skills. Not Just Theory.</h2>
+            <p class="tagline">Workforge: Your AI-Powered Simulator for Next-Gen Careers. Stop guessing, start performing.</p>
+            <p class="sub-tagline">Gain the equivalent of 1-2 years' experience in months. Step into the global job market with proven abilities and a portfolio that speaks volumes.</p>
+            <a href="#pricing" class="cta-button">Unlock Your Potential Now</a>
+        </div>
+    </section>
+
+    <section id="problem" class="darker-bg">
+        <div class="container">
+            <h3 class="section-title">The Old Way of Learning is <span>Broken</span>.</h3>
+            <p class="section-subtitle">You're ambitious. You're capable. But the traditional path to career readiness is filled with frustrating gaps, especially in today's fast-paced global market.</p>
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <h4>The "Experience Paradox"</h4>
+                    <p>Entry-level jobs demand experience, but how do you get experience without a job? It's a global catch-22 holding back fresh talent.</p>
+                </div>
+                <div class="problem-item">
+                    <h4>Passive Learning Plateau</h4>
+                    <p>Endless video courses? MOOCs with <15% completion rates? Knowledge that fades without application? It's information overload, not skill mastery.</p>
+                </div>
+                <div class="problem-item">
+                    <h4>Certifications vs. Competence</h4>
+                    <p>A PDF certificate doesn't guarantee you can perform under pressure. Employers know this. True competence is built by doing, failing, and mastering.</p>
+                </div>
+                <div class="problem-item">
+                    <h4>The "AI Anxiety" & Hidden Roles</h4>
+                    <p>Worried about AI? Unsure which career paths are future-proof? Many high-impact, emerging roles remain invisible through traditional channels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-engine" class="ai-powered-section">
+        <div class="container">
+            <h3 class="section-title">Workforge: Powered by an <span>Intelligent Simulation Engine</span></h3>
+            <p class="section-subtitle">This isn't just another course platform. Workforge leverages cutting-edge AI to create deeply immersive and adaptive learning experiences that feel like real work.</p>
+            <div class="grid">
+                <div class="feature-card">
+                    <img src="https://img.icons8.com/ios/100/00cfe8/artificial-intelligence.png" alt="AI Brain Icon" class="icon"> <h4>Dynamic AI Scenarios</h4>
+                    <p>Face unpredictable challenges and evolving situations, just like in a real job. Our AI crafts scenarios that adapt to your choices, pushing you to think critically.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://img.icons8.com/ios/100/00cfe8/feedback.png" alt="Feedback Icon" class="icon"> <h4>AI-Driven Validation & Feedback</h4>
+                    <p>Submit your work – an email, a strategy, a sales pitch – and get instant, AI-powered analysis on its effectiveness, along with actionable insights for improvement.</p>
+                </div>
+                <div class="feature-card">
+                     <img src="https://img.icons8.com/ios/100/00cfe8/virtual-reality.png" alt="VR/Simulation Icon" class="icon"> <h4>Simulated Stakeholder Interactions</h4>
+                    <p>Practice sales calls, team meetings, or client presentations with AI-powered avatars that respond realistically, helping you hone your communication and persuasion skills.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="https://img.icons8.com/ios/100/00cfe8/knowledge-sharing.png" alt="Knowledge Icon" class="icon"> <h4>Adaptive Knowledge Unlocks</h4>
+                    <p>Struggling with a concept? Workforge intelligently unlocks targeted micro-learning modules (KT videos, guides) precisely when you need them, ensuring you master skills before moving on.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sdr-path" class="sdr-path-showcase darker-bg">
+        <div class="container">
+            <h3 class="section-title">Experience the Flow: <span>SDR Simulation Path</span></h3>
+            <p class="section-subtitle">Step into the shoes of a Sales Development Representative. Here’s a glimpse of your AI-augmented journey to mastery:</p>
+            <div class="sdr-flow">
+                <div class="sdr-step">
+                    <div class="step-header"><div class="step-number">1</div><h4>Ignition: Market & Product Immersion</h4></div>
+                    <p class="desc">Receive your mission from an AI 'Sales Manager.' Deep dive into your (simulated) company’s product and define your Ideal Customer Profile using AI-generated market insights.</p>
+                    <ul>
+                        <li>Analyze product features & benefits</li>
+                        <li>Craft data-driven ICP personas</li>
+                    </ul>
+                    <div class="ai-feature-tag">AI Market Insights</div>
+                </div>
+                <div class="sdr-step">
+                    <div class="step-header"><div class="step-number">2</div><h4>Craft: AI-Validated Outreach</h4></div>
+                    <p class="desc">Draft cold emails and LinkedIn messages. Our AI validates your copy for tone, clarity, and predicted engagement, giving you a performance score. Low score? Unlock expert KT videos on persuasive writing.</p>
+                    <ul>
+                        <li>Iterate on copy based on AI feedback</li>
+                        <li>Master email sequencing</li>
+                    </ul>
+                    <div class="ai-feature-tag">AI Email Validation & Scoring</div>
+                    <div class="ai-feature-tag">Adaptive KT Unlocks</div>
+                </div>
+                <div class="sdr-step">
+                    <div class="step-header"><div class="step-number">3</div><h4>Engage: AI Customer Call Simulation</h4></div>
+                    <p class="desc">Booked a 'meeting'? Practice your discovery calls and objection handling with our dynamic AI customer avatars in a simulated video chat. AI provides feedback on your approach.</p>
+                    <ul>
+                        <li>Navigate realistic customer conversations</li>
+                        <li>Refine your pitch & questioning</li>
+                    </ul>
+                    <div class="ai-feature-tag">AI Video Call Simulation</div>
+                </div>
+                <div class="sdr-step">
+                    <div class="step-header"><div class="step-number">4</div><h4>Master: Performance & Certification</h4></div>
+                    <p class="desc">Analyze your performance metrics. Complete contextual knowledge assessments (no boring MCQs!). Build your portfolio. Earn your Workforge Performance Certification.</p>
+                    <ul>
+                        <li>Review AI-generated performance analytics</li>
+                        <li>Ace scenario-based assessments</li>
+                    </ul>
+                    <div class="ai-feature-tag">AI Performance Analytics</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="who-is-it-for" class="audience-profiles">
+        <div class="container">
+            <h3 class="section-title">Workforge is Built For <span>Trailblazers Like You</span></h3>
+            <p class="section-subtitle">We understand your journey. Here’s how Workforge empowers individuals ready to take control of their careers:</p>
+            <div class="profile-grid">
+                <div class="profile-card">
+                    <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=1&fit=crop" alt="Adam, College Grad" class="avatar"> <h4 class="name">Adam</h4>
+                    <p class="role">Ambitious College Grad</p>
+                    <p class="pain-point">"I'm drowning in theory from my degree, but entry-level jobs demand 1-2 years of experience I don't have. I'm unsure if my chosen field is even right for me, and I don't know what other modern roles are out there."</p>
+                    <p class="solution-highlight">Workforge gives Adam simulated experience in roles like SDR or Digital Marketing, building a portfolio and the confidence to land his first great job.</p>
+                </div>
+                <div class="profile-card">
+                    <img src="https://images.pexels.com/photos/4100667/pexels-photo-4100667.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=1&fit=crop" alt="Priya, Career Pivoter" class="avatar">
+                    <h4 class="name">Priya</h4>
+                    <p class="role">Aspiring Career Pivoter</p>
+                    <p class="pain-point">"I've been in my current industry for 5 years and feel stagnant. I want to move into Product Marketing, but all courses are theoretical. How can I prove I can do the job without prior 'official' experience?"</p>
+                    <p class="solution-highlight">Priya uses Workforge's Product Marketing simulation to master GTM strategies and build a compelling portfolio, enabling her confident career shift.</p>
+                </div>
+                <div class="profile-card">
+                    <img src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=1&fit=crop" alt="Samuel, Upskilling Professional" class="avatar">
+                    <h4 class="name">Samuel</h4>
+                    <p class="role">Upskilling Professional</p>
+                    <p class="pain-point">"My role is evolving due to AI and new technologies. I need to pick up skills in AI-driven decision making and data analysis fast, but I can't afford to take a long sabbatical for another degree."</p>
+                    <p class="solution-highlight">Samuel accelerates his learning with Workforge's "AI-Driven Business Decision Making" path, gaining practical, applicable skills efficiently.</p>
+                </div>
+                <div class="profile-card">
+                    <img src="https://images.pexels.com/photos/7645902/pexels-photo-7645902.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=1&fit=crop" alt="Chloe, Global Learner" class="avatar">
+                    <h4 class="name">Chloe</h4>
+                    <p class="role">Self-Driven Global Learner</p>
+                    <p class="pain-point">"I'm a motivated learner from a region with fewer local job opportunities in high-tech. I need a way to gain globally recognized skills and experience that transcends geographical boundaries."</p>
+                    <p class="solution-highlight">Chloe uses Workforge to access world-class career simulations, building skills recognized by international employers, all remotely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="paths" class="darker-bg">
+        <div class="container">
+            <h3 class="section-title">Explore an Expanding Universe of <span>Career Simulations</span></h3>
+            <p class="section-subtitle">Our AI-powered engine can forge experiences across a multitude of modern roles. Here are a few paths currently in development or launching soon:</p>
+            <div class="problem-grid"> <div class="problem-item"><h4>Digital Marketing Strategist</h4><p>Master SEO, AI-powered SEM, Content Ecosystems & Advanced Analytics.</p></div>
+                <div class="problem-item"><h4>Product Marketing Lead</h4><p>Drive Go-To-Market, Competitive Analysis, Persona AI & Product Messaging.</p></div>
+                <div class="problem-item"><h4>AI-Driven Business Decision Making</h4><p>Leverage data, predictive models & AI insights for strategic business choices.</p></div>
+                <div class="problem-item"><h4>Growth Hacking & Experimentation</h4><p>Run data-informed growth sprints, A/B test with AI tools, and scale user acquisition.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <h3 class="section-title">Join the Workforge <span>Pioneer Program</span></h3>
+            <p class="section-subtitle">Gain foundational access to our AI-powered simulations at an exclusive introductory investment. Limited spots available.</p>
+            <div class="pricing-grid">
+                <div class="pricing-plan popular">
+                    <div>
+                        <h4>Pioneer Access: Per Path</h4>
+                        <div class="price">$99 <span>USD</span></div> 
+                        <p style="color: var(--accent-primary); font-weight:bold;">Limited Time Global Pilot Offer!</p>
+                        <ul>
+                            <li>Full Access to One Chosen Simulation Path (e.g., SDR)</li>
+                            <li>AI-Powered Dynamic Scenarios & Feedback</li>
+                            <li>Adaptive Knowledge Transfer Modules</li>
+                            <li>Performance-Based Workforge Certification</li>
+                            <li>Build Your Verifiable Work Portfolio</li>
+                            <li>Exclusive Pioneer Community & Direct Feedback Line</li>
+                        </ul>
+                    </div>
+                    <a href="#cta" class="cta-button">Claim Your Pioneer Spot</a>
+                </div>
+                <div class="pricing-plan">
+                     <div>
+                        <h4>Explorer Pass Waitlist</h4>
+                        <div class="price">FREE <span>to Join</span></div>
+                        <p>Be the first to know about new paths and platform updates!</p>
+                        <ul>
+                            <li>Priority Updates on New Career Simulations</li>
+                            <li>Exclusive Discounts for Waitlist Members</li>
+                            <li>Invitations to Beta Tests & Webinars</li>
+                            <li>Help Shape Future Workforge Paths</li>
+                            <li>Access to Foundational Skills Content</li>
+                        </ul>
+                    </div>
+                    <a href="#cta" class="cta-button">Join FREE Waitlist</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta" id="cta">
+        <div class="container">
+            <h3>The Future of Work Isn't Coming. It's Being Built. By You.</h3>
+            <p>Stop waiting for experience. Start creating it. Workforge is your simulator for success.</p>
+            <a href="mailto:launch@workforge.io?subject=Workforge Pioneer Program Inquiry" class="cta-button">Become a Workforge Pioneer</a>
+            <p style="margin-top:20px; font-size:0.9rem;">(Have questions? Let's connect!)</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Workforge. All Rights Reserved. Forging the Future of Global Talent.</p>
+            <p><a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a> | <a href="mailto:support@workforge.io">support@workforge.io</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
